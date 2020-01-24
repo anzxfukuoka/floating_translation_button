@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "274679733579",
+    "firebase_url": "https://screentranslator-868c1.firebaseio.com",
+    "project_id": "screentranslator-868c1",
+    "storage_bucket": "screentranslator-868c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:274679733579:android:89fdf2664491a0eec65cce",
+        "android_client_info": {
+          "package_name": "jp.anzx.wap_translatr_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "274679733579-pl09b2bq5v4u4p1c4n4ni3lhgi72t0f9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1nSFvCYZOA-4zCdw1HPE3VFTDzvGgTsI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "274679733579-pl09b2bq5v4u4p1c4n4ni3lhgi72t0f9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
