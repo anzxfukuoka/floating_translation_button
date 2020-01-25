@@ -3,6 +3,7 @@ package jp.anzx.wap_translatr_client;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.projection.MediaProjectionManager;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         //translator
         ProgressBar progressBar = findViewById(R.id.loadingpanel);
+
 
         Translator.setProgressBar(progressBar);
         Translator.init(this);
@@ -167,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
 
         int StatusBarHeight = height - rectgle.bottom - Things.navigationBarHeight;
         Things.statusBarHeight = StatusBarHeight;
-
 
     }
 }

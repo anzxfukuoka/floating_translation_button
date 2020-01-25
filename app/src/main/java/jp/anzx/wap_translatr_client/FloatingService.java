@@ -4,20 +4,12 @@ import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
 import android.os.Build;
-import android.os.Environment;
 import android.os.IBinder;
-import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -25,10 +17,6 @@ import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.util.Date;
 
 public class FloatingService extends Service {
     public static final String TAG = "WAPT_FloatingService";
@@ -45,7 +33,7 @@ public class FloatingService extends Service {
         mWindowManager = (WindowManager)getSystemService(WINDOW_SERVICE);
 
         image = new ImageView(this);
-        image.setImageResource(R.drawable.ic_launcher_background);
+        image.setImageResource(R.drawable.moon);
 
         selectionView = new SelectionView(this);
 
@@ -58,9 +46,12 @@ public class FloatingService extends Service {
         }
 
         //floating btn params
+
+        int dpi = (int)getApplication().getResources().getDisplayMetrics().density;
+
         final LayoutParams paramsF = new WindowManager.LayoutParams(
-                LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT,
+                108 * dpi,//LayoutParams.WRAP_CONTENT,
+                108 * dpi,//LayoutParams.WRAP_CONTENT,
                 LAYOUT_FLAG, //LayoutParams.TYPE_PHONE,
                 LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
@@ -82,17 +73,14 @@ public class FloatingService extends Service {
                 LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
-        paramsF.gravity = Gravity.TOP | Gravity.LEFT;
-        paramsF.x=0;
-        paramsF.y=0;
-
 
         image.setOnTouchListener(new View.OnTouchListener() {
-            WindowManager.LayoutParams paramsT = paramsF;
+
             private int initialX;
             private int initialY;
             private float initialTouchX;
             private float initialTouchY;
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch(event.getAction()){
@@ -135,8 +123,11 @@ public class FloatingService extends Service {
                 mWindowManager.removeView(selectionView);
 
                 //taking and cropping screenshot
-                Intent i = new Intent(getApplicationContext(), ScreenCaptureService.class);
-                startService(i);
+                //Intent i = new Intent(getApplicationContext(), ScreenCaptureService.class);
+                //startService(i);
+
+                ScreenshotTaker screenshotTaker = new ScreenshotTaker(getApplicationContext());
+                screenshotTaker.takeScreenshot();
             }
         });
 

@@ -28,6 +28,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:padding="0dp"
+        android:saveEnabled="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_play_circle_outline_black_24dp"
+        app:borderWidth="0dp"
+        app:fabSize="normal"
+        app:useCompatPadding="true" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

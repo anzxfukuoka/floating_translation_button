@@ -87,16 +87,21 @@ public class Translator {
 
     }
 
-    public static void translate(final String text, Context con){
+    public static void translate(String text, Context con){
         //translate source text to english
 
         final Context context = con;
+
+        //for jpn
+        text = text.replaceAll(" ", "");
+        text = text.replaceAll("\n", "");
 
         firebaseTranslator.translate(text)
                 .addOnSuccessListener(
                         new OnSuccessListener<String>() {
                             @Override
                             public void onSuccess(@NonNull String translatedText) {
+                                Log.i(TAG, translatedText);
                                 Toast.makeText(context , translatedText, Toast.LENGTH_LONG).show();
 
                             }
@@ -116,6 +121,7 @@ public class Translator {
         tessBaseApi.init(DATA_PATH, "jpn");
         tessBaseApi.setImage(bitmap);
         String extractedText = tessBaseApi.getUTF8Text();
+        Log.i(TAG, extractedText);
         tessBaseApi.end();
         return extractedText;
     }
