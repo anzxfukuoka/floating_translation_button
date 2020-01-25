@@ -20,7 +20,11 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
     private MediaProjectionManager mProjectionManager;
 
+    private Spinner srcSpinner;
+    private Spinner distSpinner;
+    private Button okBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,54 @@ public class MainActivity extends AppCompatActivity {
         //setContentView(new SelectionView(this));
 
         getScreenSizes();
+
+        //выпадающие списки
+        srcSpinner = findViewById(R.id.srcSpinner);
+        distSpinner = findViewById(R.id.distSpinner);
+        okBtn = findViewById(R.id.ok_btn);
+
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.langlist, R.layout.spinner_item);
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        srcSpinner.setAdapter(adapter);
+        distSpinner.setAdapter(adapter);
+
+        srcSpinner.setSelection(0);
+        distSpinner.setSelection(2);
+
+
+        okBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String selected = srcSpinner.getSelectedItem().toString();
+                switch (selected){
+                    case "JP":
+                        Things.srcLang = Things.JP;
+                        break;
+                    case "EN":
+                        Things.srcLang = Things.EN;
+                        break;
+                    case "RU":
+                        Things.srcLang = Things.RU;
+                        break;
+                }
+
+                selected = distSpinner.getSelectedItem().toString();
+                switch (selected){
+                    case "JP":
+                        Things.distLang = Things.JP;
+                        break;
+                    case "EN":
+                        Things.distLang = Things.EN;
+                        break;
+                    case "RU":
+                        Things.distLang = Things.RU;
+                        break;
+                }
+
+                Translator.downloadLang();
+            }
+        });
 
         //translator
         ProgressBar progressBar = findViewById(R.id.loadingpanel);

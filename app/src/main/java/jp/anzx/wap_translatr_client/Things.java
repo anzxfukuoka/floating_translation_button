@@ -22,4 +22,14 @@ public class Things {
     public static int statusBarHeight;
     public static int navigationBarHeight;
 
+    //
+
+    public final static String JP = "jpn";
+    public final static String EN = "eng";
+    public final static String RU = "rus";
+
+
+    public static String srcLang = JP;
+    public static String distLang = RU;
+
 }

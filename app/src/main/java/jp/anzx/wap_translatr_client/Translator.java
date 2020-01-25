@@ -40,19 +40,51 @@ public class Translator {
 
     public static void init(Context context){
 
-        //show progressbar
-        if (progressBar != null)
-            progressBar.setVisibility(View.VISIBLE);
-
         // Tesseract
         extractTessDataFiles(context);
 
         // FirebaseTranslator
+        downloadLang();
+
+    }
+
+    static void downloadLang(){
+
+        int src = -1, dist = -1;
+
+        switch (Things.srcLang){
+            case Things.JP:
+                src = FirebaseTranslateLanguage.JA;
+                break;
+            case Things.EN:
+                src = FirebaseTranslateLanguage.EN;
+                break;
+            case Things.RU:
+                src = FirebaseTranslateLanguage.RU;
+                break;
+        }
+
+        switch (Things.distLang){
+            case Things.JP:
+                dist = FirebaseTranslateLanguage.JA;
+                break;
+            case Things.EN:
+                dist = FirebaseTranslateLanguage.EN;
+                break;
+            case Things.RU:
+                dist = FirebaseTranslateLanguage.RU;
+                break;
+        }
+
+        //show progressbar
+        if (progressBar != null)
+            progressBar.setVisibility(View.VISIBLE);
+
         // Create an translator:
         FirebaseTranslatorOptions options =
                 new FirebaseTranslatorOptions.Builder()
-                        .setSourceLanguage(FirebaseTranslateLanguage.JA)
-                        .setTargetLanguage(FirebaseTranslateLanguage.RU)
+                        .setSourceLanguage(src)
+                        .setTargetLanguage(dist)
                         .build();
 
         firebaseTranslator = FirebaseNaturalLanguage.getInstance().getTranslator(options);
@@ -87,14 +119,16 @@ public class Translator {
 
     }
 
+
     public static void translate(String text, Context con){
         //translate source text to english
 
         final Context context = con;
 
-        //for jpn
-        text = text.replaceAll(" ", "");
-        text = text.replaceAll("\n", "");
+        if (Things.srcLang.equals(Things.JP)){
+            text = text.replaceAll(" ", "");
+            text = text.replaceAll("\n", "");
+        }
 
         firebaseTranslator.translate(text)
                 .addOnSuccessListener(
@@ -118,7 +152,7 @@ public class Translator {
     public static String extractText(Bitmap bitmap)
     {
         TessBaseAPI tessBaseApi = new TessBaseAPI();
-        tessBaseApi.init(DATA_PATH, "jpn");
+        tessBaseApi.init(DATA_PATH, Things.srcLang);
         tessBaseApi.setImage(bitmap);
         String extractedText = tessBaseApi.getUTF8Text();
         Log.i(TAG, extractedText);

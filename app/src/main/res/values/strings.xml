@@ -1,4 +1,11 @@
 <resources>
-    <string name="app_name">Wap-translatоr client</string>
+    <string name="app_name">⋆Translator⋆</string>
     <string name="action_settings">Settings</string>
+
+    <string-array name="langlist">
+        <item>JP</item>
+        <item>EN</item>
+        <item>RU</item>
+    </string-array>
+
 </resources>
